@@ -1,0 +1,12 @@
+/*.suo
+bin/
+obj/
+/Data
+/*.user
+_Resharper*
+_ReSharper*
+.hgtags
+NuGet.exe
+*.user
+*.nupkg
+.docstats
