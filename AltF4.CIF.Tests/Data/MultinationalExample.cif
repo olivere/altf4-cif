@@ -1,0 +1,13 @@
+﻿CIF_I_V3.0
+LOADMODE: F
+CHARSET: 8859_1
+CODEFORMAT: UNSPSC_V7.0
+FIELDNAMES: Supplier ID, Supplier Part ID, Manufacturer Part ID, Item Description, SPSC Code, Unit Price, Unit of Measure, Lead Time, Manufacturer Name, Supplier URL, Manufacturer URL, Market Price,  Language, Currency, Supplier Part Auxiliary ID
+SUPPLIERID_DOMAIN: DUNS
+ITEMCOUNT: 3
+TIMESTAMP: 2000-05-15 15:25:04
+DATA
+6565,2B,2B,"Men's black shoes",53111601,54.95,PR,2,,,,,en_US ,USD ,en_US
+6565,2B,2B,"Chaussures noires des hommes",53111601,119.95,PR,2,,,,,fr_FR ,FRF ,fr_FR
+6565,2B,2B,"Herrenschuhe schwarz",53111601,34.95,PR,2,,,,,de_DE ,DEM ,de_DE
+ENDOFDATA

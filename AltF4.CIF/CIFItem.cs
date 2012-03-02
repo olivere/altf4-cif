@@ -13,6 +13,7 @@ namespace AltF4.CIF
     public class CIFItem
     {
         private readonly Dictionary<string,string> _dict = new Dictionary<string, string>();
+        private readonly List<string> _errors = new List<string>(); 
 
         public CIFItem()
         {            
@@ -23,15 +24,342 @@ namespace AltF4.CIF
             get { return !_dict.Any(); }
         }
 
+        #region Set required, optional, and custom fields
+
+        /*
         public string this[int index]
         {
             get { return _dict.Values.ElementAt(index); }
         }
+        */
 
         public string this[string name]
         {
             get { return _dict.ContainsKey(name) ? _dict[name] : null; }
             set { _dict[name] = value; }
+        }
+
+        #endregion
+
+        #region Required fields
+
+        public string SupplierID
+        {
+            get { return this[Constants.SupplierID]; }
+            set { this[Constants.SupplierID] = value; }
+        }
+
+        public string SupplierPartID
+        {
+            get { return this[Constants.SupplierPartID]; }
+            set { this[Constants.SupplierPartID] = value; }
+        }
+
+        public string ManufacturerPartID
+        {
+            get { return this[Constants.ManufacturerPartID]; }
+            set { this[Constants.ManufacturerPartID] = value; }
+        }
+
+        public string ItemDescription
+        {
+            get { return this[Constants.ItemDescription]; }
+            set { this[Constants.ItemDescription] = value; }
+        }
+
+        public string SPSCCode
+        {
+            get { return this[Constants.SPSCCode]; }
+            set { this[Constants.SPSCCode] = value; }
+        }
+
+        public decimal? UnitPrice
+        {
+            get
+            {
+                var value = this[Constants.UnitPrice];
+                if (string.IsNullOrEmpty(value))
+                    return null;
+                return decimal.Parse(value, NumberStyles.Number, CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                this[Constants.UnitPrice] = value != null ? value.Value.ToString(CultureInfo.InvariantCulture) : null;
+            }
+        }
+
+        /// <summary>
+        /// Returns the unit of measure. 
+        /// </summary>
+        /// <remarks>
+        /// Notice that the spec specifies this field as <c>Units of Measure</c>
+        /// while the examples in the spec use <c>Unit of Measure</c>. 
+        /// We only check for <c>Units of Measure</c>. If you want 
+        /// <c>Unit of Measure</c>, you need to use the indexer.
+        /// </remarks>
+        public string UnitsOfMeasure
+        {
+            get { return this[Constants.UnitsOfMeasure]; }
+            set { this[Constants.UnitsOfMeasure] = value; }
+        }
+
+        public int? LeadTime
+        {
+            get
+            {
+                var value = this[Constants.LeadTime];
+                if (string.IsNullOrEmpty(value))
+                    return null;
+                return int.Parse(value, NumberStyles.Integer, CultureInfo.InvariantCulture);
+            }
+            set { this[Constants.LeadTime] = value != null ? value.Value.ToString(CultureInfo.InvariantCulture) : null; }
+        }
+
+        public string ManufacturerName
+        {
+            get { return this[Constants.ManufacturerName]; }
+            set { this[Constants.ManufacturerName] = value; }
+        }
+
+        public string SupplierURL
+        {
+            get { return this[Constants.SupplierURL]; }
+            set { this[Constants.SupplierURL] = value; }
+        }
+
+        public string ManufacturerURL
+        {
+            get { return this[Constants.ManufacturerURL]; }
+            set { this[Constants.ManufacturerURL] = value; }
+        }
+
+        public decimal? MarketPrice
+        {
+            get
+            {
+                var value = this[Constants.MarketPrice];
+                if (string.IsNullOrEmpty(value))
+                    return null;
+                return decimal.Parse(value, NumberStyles.Number, CultureInfo.InvariantCulture);
+            }
+            set { this[Constants.MarketPrice] = value != null ? value.Value.ToString(CultureInfo.InvariantCulture) : null; }
+        }
+
+        #endregion
+
+        #region Optional fields
+
+        public string Tier
+        {
+            get { return this[Constants.Tier]; }
+            set { this[Constants.Tier] = value; }
+        }
+
+        public string Name
+        {
+            get { return this[Constants.Name]; }
+            set { this[Constants.Name] = value; }
+        }
+
+        public string Language
+        {
+            get { return this[Constants.Language]; }
+            set { this[Constants.Language] = value; }
+        }
+
+        public string Currency
+        {
+            get { return this[Constants.Currency]; }
+            set { this[Constants.Currency] = value; }
+        }
+
+        public DateTime? ExpirationDate
+        {
+            get
+            {
+                var value = this[Constants.ExpirationDate];
+                DateTime dt;
+                if (DateTime.TryParse(value, out dt))
+                {
+                    return dt;
+                }
+                return null;
+            }
+            set
+            {
+                this[Constants.ExpirationDate] = value != null
+                                                     ? value.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                                                     : null;
+            }
+        }
+
+        public DateTime? EffectiveDate
+        {
+            get
+            {
+                var value = this[Constants.EffectiveDate];
+                DateTime dt;
+                if (DateTime.TryParse(value, out dt))
+                {
+                    return dt;
+                }
+                return null;
+            }
+            set
+            {
+                this[Constants.EffectiveDate] = value != null
+                                                     ? value.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                                                     : null;
+            }
+        }
+
+        public IDictionary<string,string> ClassificationCodes
+        {
+            get
+            {
+                return ParseHash(this[Constants.ClassificationCodes]);
+            }
+            set
+            {
+                this[Constants.ClassificationCodes] = ToHash(value);
+            }
+        }
+
+        public IDictionary<string,string> ParametricData
+        {
+            get
+            {
+                return ParseHash(this[Constants.ParametricData]);
+            }
+            set
+            {
+                this[Constants.ParametricData] = ToHash(value);
+            }
+        }
+
+        public string ParametricName
+        {
+            get { return this[Constants.ParametricName]; }
+            set { this[Constants.ParametricName] = value; }
+        }
+
+        /// <summary>
+        /// Specifies a PunchOut catalog item.
+        /// </summary>
+        /// <remarks>
+        /// The spec mentions that values <c>True</c>, <c>true</c>,
+        /// <c>t</c>, and <c>1</c> (case-insensitive) represent
+        /// <lang>true</lang> and <c>False</c>, <c>false</c>,
+        /// <c>f</c>, and <c>0</c> (case-insensitive) represent
+        /// <lang>false</lang>.
+        /// If none of the above values is found, <lang>null</lang>
+        /// is returned.
+        /// </remarks>
+        public bool? PunchOutEnabled
+        {
+            get
+            {
+                var value = this[Constants.PunchOutEnabled];
+
+                if (0 == string.Compare(value, "true", true, CultureInfo.InvariantCulture) ||
+                    0 == string.Compare(value, "t", true, CultureInfo.InvariantCulture) || 
+                    0 == string.Compare(value, "1", true, CultureInfo.InvariantCulture))
+                {
+                    return true;
+                }
+                if (0 == string.Compare(value, "false", true, CultureInfo.InvariantCulture) || 
+                    0 == string.Compare(value, "f", true, CultureInfo.InvariantCulture) ||
+                    0 == string.Compare(value, "0", true, CultureInfo.InvariantCulture))
+                {
+                    return false;
+                }
+
+                return null;
+            }
+            set
+            {
+                if (value.HasValue)
+                {
+                    this[Constants.PunchOutEnabled] = value.Value ? "True" : "False";
+                }
+                else
+                {
+                    this[Constants.PunchOutEnabled] = null;
+                }
+            }
+        }
+
+        public string TerritoryAvailable
+        {
+            get { return this[Constants.TerritoryAvailable]; }
+            set { this[Constants.TerritoryAvailable] = value; }
+        }
+
+        public string SupplierPartAuxiliaryID
+        {
+            get { return this[Constants.SupplierPartAuxiliaryID]; }
+            set { this[Constants.SupplierPartAuxiliaryID] = value; }
+        }
+
+        public bool? Delete
+        {
+            get
+            {
+                var value = this[Constants.Delete];
+                bool delete;
+                if (bool.TryParse(value, out delete))
+                {
+                    return delete;
+                }
+                return null;
+            }
+            set
+            {
+                if (value.HasValue)
+                {
+                    this[Constants.Delete] = value.Value ? "True" : "False";
+                }
+                else
+                {
+                    this[Constants.Delete] = null;
+                }
+            }
+        }
+
+        #endregion
+
+        public bool IsValid
+        {
+            get 
+            {
+                PerformValidation();
+                return !_errors.Any();
+            }
+        }
+
+        public string[] Errors
+        {
+            get
+            {
+                PerformValidation();
+                return _errors.ToArray();
+            }
+        }
+
+        private void PerformValidation()
+        {
+            var errors = new List<string>();
+
+            foreach (var fieldName in Constants.RequiredFields)
+            {
+                if (null == this[fieldName])
+                {
+                    errors.Add(string.Format("{0} is missing", fieldName));
+                }
+            }
+
+            _errors.Clear();
+            _errors.AddRange(errors);
         }
 
         public bool IsHash(string name)
@@ -55,7 +383,7 @@ namespace AltF4.CIF
             if (string.IsNullOrEmpty(itemData))
                 return item;
 
-            var values = ParseCSV(itemData);
+            var values = ParseCSV(itemData, false);
 
             // TODO use header encoding for item data here
 
@@ -74,13 +402,13 @@ namespace AltF4.CIF
                     var value = valuesArray[i];
 
                     // Handle special cases like CIF Hashes in CIFItem instance
-                    item[name] = value;
+                    item[name] = !string.IsNullOrEmpty(value) ? value : null;
                 }
             }
             else
             {
                 // Field names are not specified, so use the (12) default fields from CIF 2.1
-                var namesArray = Constants.DefaultFields;
+                var namesArray = Constants.RequiredFields;
                 var valuesArray = values.ToArray();
 
                 for (int i = 0; i < namesArray.Length; ++i)
@@ -89,42 +417,26 @@ namespace AltF4.CIF
                     var value = valuesArray[i];
 
                     // Handle special cases like CIF Hashes in CIFItem instance
-                    item[name] = value;
+                    item[name] = !string.IsNullOrEmpty(value) ? value : null;
                 }
             }
 
             return item;
         }
 
-        internal string ToCSV()
+        internal string ToCSV(IEnumerable<string> fieldNames)
         {
+            if (fieldNames == null || !fieldNames.Any())
+                return string.Empty;
+
             var parts = new List<string>();
+
+            var fields = fieldNames.ToArray();
             
-            // TODO write first (12) default CIF fields
-            // TODO sort fields correctly
-            foreach(var kvp in _dict)
+            // write CIF fields
+            for (int i = 0; i < fields.Count(); ++i)
             {
-                if (IsHash(kvp.Key))
-                {
-                    // Serialize as hash
-                    var inner = new List<string>();
-                    foreach (var innerkvp in GetHash(kvp.Value))
-                    {
-                        inner.Add(string.Format("{0}={1}", innerkvp.Key, Csvify(innerkvp.Value)));
-                    }
-                    parts.Add(string.Format("{{{0}}}", string.Join(";", inner)));
-                }
-                /*
-                else if (IsCollection(kvp.Key))
-                {
-                    // Serialize as collection
-                }
-                */
-                else
-                {
-                    // Serialize as common field
-                    parts.Add(Csvify(kvp.Value));
-                }
+                parts.Add(Csvify(this[fields[i]]));
             }
 
             return string.Join(Constants.DefaultFieldSep.ToString(CultureInfo.InvariantCulture),
@@ -146,7 +458,37 @@ namespace AltF4.CIF
             return s;
         }
 
+        internal static string ToHash(IDictionary<string,string> dict)
+        {
+            if (dict == null)
+                return string.Empty;
+
+            // Serialize as hash
+            var inner = new List<string>();
+            foreach (var kvp in dict)
+            {
+                inner.Add(string.Format("{0}={1}", kvp.Key, Csvify(kvp.Value)));
+            }
+
+            return string.Format("{{{0}}}", string.Join(";", inner));
+        }
+
         #region Parse CSV row data
+
+        /// <summary>
+        /// Parses a single CSV row.
+        /// </summary>
+        /// <remarks>
+        /// This method uses <see cref="Constants.DefaultFieldSep"/> as field
+        /// separator and <see cref="Constants.DefaultQuoteChar"/>
+        /// as quote character. Furthermore, field values are not trimmed.
+        /// </remarks>
+        /// <param name="line">Raw line data</param>
+        /// <returns>Column data</returns>
+        internal static IList<string> ParseCSV(string line)
+        {
+            return ParseRow(line, Constants.DefaultFieldSep, Constants.DefaultQuoteChar, false);
+        }
 
         /// <summary>
         /// Parses a single CSV row.
@@ -157,10 +499,11 @@ namespace AltF4.CIF
         /// as quote character.
         /// </remarks>
         /// <param name="line">Raw line data</param>
+        /// <param name="trim">Trim field values</param>
         /// <returns>Column data</returns>
-        internal static IList<string> ParseCSV(string line)
+        internal static IList<string> ParseCSV(string line, bool trim)
         {
-            return ParseRow(line, Constants.DefaultFieldSep, Constants.DefaultQuoteChar);
+            return ParseRow(line, Constants.DefaultFieldSep, Constants.DefaultQuoteChar, trim);
         }
 
         /// <summary>
@@ -174,8 +517,9 @@ namespace AltF4.CIF
         /// <param name="line">Raw line data</param>
         /// <param name="fieldSep">Field separator</param>
         /// <param name="quoteChar">Quote character</param>
+        /// <param name="trim">Trim field values</param>
         /// <returns>Column data</returns>
-        internal static IList<string> ParseRow(string line, char fieldSep, char quoteChar)
+        internal static IList<string> ParseRow(string line, char fieldSep, char quoteChar, bool trim)
         {
             if (string.IsNullOrEmpty(line))
                 return new string[0];
@@ -194,6 +538,8 @@ namespace AltF4.CIF
                 char c = line[i];
                 lastChar = c;
 
+                bool startOfQuote = c == '"' && (i > 0 && line[i - 1] == fieldSep);
+
                 // Quote char
                 if (c == quoteChar)
                 {
@@ -208,12 +554,18 @@ namespace AltF4.CIF
                             ++i;
                         }
                     }
-                    else
+                    else if (startOfQuote)
                     {
-                        // Start quoted field
+                        // Start quoted field (can only start after a fieldSep)
                         insideQuotedField = true;
                         ++i;
                         field.Remove(0, field.Length);
+                    }
+                    else
+                    {
+                        // Quote inside field
+                        field.Append(c);
+                        ++i;
                     }
                     continue;
                 }
@@ -223,7 +575,8 @@ namespace AltF4.CIF
                 {
                     if (!insideQuotedField)
                     {
-                        fields.Add(field.ToString());
+                        var s = trim ? field.ToString().Trim() : field.ToString();
+                        fields.Add(s);
                         field.Remove(0, field.Length);
                         ++i;
                     }
@@ -243,7 +596,10 @@ namespace AltF4.CIF
 
             // Either field is not empty or last char was field sep
             if (field.Length > 0 || lastChar == fieldSep)
-                fields.Add(field.ToString());
+            {
+                var s = trim ? field.ToString().Trim() : field.ToString();
+                fields.Add(s);
+            }
 
             return fields;
         }
@@ -300,6 +656,8 @@ namespace AltF4.CIF
 
             if (string.IsNullOrEmpty(hashData))
                 return dict;
+
+            hashData = hashData.Trim();
 
             if (hashData[0] != '{' && hashData[hashData.Length - 1] != '}')
                 return dict;

@@ -67,8 +67,9 @@ namespace AltF4.CIF
                 trailerData.AppendLine(line);
             }
 
-            //var trailer = CIFTrailer.Parse(trailerData.ToString());
-            //protocol.HandleTrailer(trailer);
+            var trailer = CIFTrailer.Parse(trailerData.ToString());
+            if (trailer != null)
+                protocol.HandleTrailer(trailer);
         }
     }
 }

@@ -12,6 +12,9 @@ namespace AltF4.CIF.Tests
         public int HeaderCalls { get; set; }
         public CIFHeader Header { get; set; }
 
+        public int FieldNamesCalls { get; set; }
+        public string[] FieldNames { get; set; }
+
         public int ItemCalls { get; set; }
         public List<CIFItem> Items { get; set; }
 
@@ -22,6 +25,12 @@ namespace AltF4.CIF.Tests
         {
             HeaderCalls += 1;
             return Header;
+        }
+
+        public override string[] GetCIFFieldNames()
+        {
+            FieldNamesCalls += 1;
+            return FieldNames;
         }
 
         public override IEnumerable<CIFItem> GetCIFItemEnumerator()

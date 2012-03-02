@@ -1,0 +1,9 @@
+﻿CIF_I_V3.0
+LOADMODE: F
+CODEFORMAT: UNSPSC
+COMMENTS: This is an example of an PunchOut catalog item
+FIELDNAMES: Supplier ID, Supplier Part ID, Manufacturer Part ID, Item Description, SPSC Code, Unit Price, Unit of Measure, Lead Time, Manufacturer Name, Supplier URL, Manufacturer URL, Market Price,  PunchOut Enabled
+CURRENCY: USD
+DATA
+762311901,A2C-311F,C-311F,"Configurable Chairs from Work Chairs, Inc.",11116767,,,,,https://www.workchairs.com/configurator.asp,,,t
+ENDOFDATA

@@ -33,8 +33,22 @@ namespace AltF4.CIF
         public const string SupplierURL = "Supplier URL";
         public const string ManufacturerURL = "Manufacturer URL";
         public const string MarketPrice = "Market Price";
+        // Non-default fields (optional)
+        public const string Tier = "Tier";
+        public const string Name = "Name";
+        public const string Language = "Language";
+        public const string Currency = "Currency";
+        public const string ExpirationDate = "Expiration Date";
+        public const string EffectiveDate = "Effective Date";
+        public const string ClassificationCodes = "Classification Codes";
+        public const string ParametricData = "Parametric Data";
+        public const string ParametricName = "Parametric Name";
+        public const string PunchOutEnabled = "PunchOut Enabled";
+        public const string TerritoryAvailable = "Territory Available";
+        public const string SupplierPartAuxiliaryID = "Supplier Part Auxiliary ID";
+        public const string Delete = "Delete";
 
-        public static readonly string[] DefaultFields = {
+        public static readonly string[] RequiredFields = {
                                                             SupplierID,
                                                             SupplierPartID,
                                                             ManufacturerPartID,
@@ -47,6 +61,22 @@ namespace AltF4.CIF
                                                             SupplierURL,
                                                             ManufacturerURL,
                                                             MarketPrice,
+                                                        };
+
+        public static readonly string[] OptionalFields = {
+                                                            Tier,
+                                                            Name,
+                                                            Language,
+                                                            Currency,
+                                                            ExpirationDate,
+                                                            EffectiveDate,
+                                                            ClassificationCodes,
+                                                            ParametricData,
+                                                            ParametricName,
+                                                            PunchOutEnabled,
+                                                            TerritoryAvailable,
+                                                            SupplierPartAuxiliaryID,
+                                                            Delete,
                                                         };
 
         internal const char DefaultQuoteChar = '"';

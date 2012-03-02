@@ -10,5 +10,11 @@ namespace AltF4.CIF
         public int ItemCount { get; set; }
 
         public string Timestamp { get; set; }
+
+        internal static CIFTrailer Parse(string trailerData)
+        {
+            // TODO parse trailer data here
+            return null;
+        }
     }
 }

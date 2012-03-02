@@ -9,8 +9,13 @@ namespace AltF4.CIF
     {
         public abstract CIFHeader GetCIFHeader();
 
+        public abstract string[] GetCIFFieldNames();
+
         public abstract IEnumerable<CIFItem> GetCIFItemEnumerator();
         
-        public abstract CIFTrailer GetCIFTrailer();
+        public virtual CIFTrailer GetCIFTrailer()
+        {
+            return null;
+        }
     }
 }

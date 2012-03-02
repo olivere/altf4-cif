@@ -66,7 +66,7 @@ namespace AltF4.CIF
         /// <summary>
         /// Declares the columns in the body of the CIF file.
         /// </summary>
-        public string FieldNames { get; set; }
+        public string FieldNames { get; internal set; }
 
         /// <summary>
         /// Columns in the body of the CIF file as a list.
@@ -77,24 +77,23 @@ namespace AltF4.CIF
             {
                 if (_fieldNamesList == null)
                 {
-                    _fieldNamesList = CIFItem.ParseCSV(FieldNames);
+                    _fieldNamesList = CIFItem.ParseCSV(FieldNames, true);
                 }
                 return _fieldNamesList;
             }
-            set { _fieldNamesList = value; }
-
+            internal set { _fieldNamesList = value; }
         }
 
         /// <summary>
         /// Number of items in the file.
         /// </summary>
-        public int ItemCount { get; set; }
+        public int? ItemCount { get; set; }
 
         /// <summary>
         /// Declares whether the catalog is complete ('F' or full) 
         /// or an update ('I' for incremental).
         /// </summary>
-        public char LoadMode { get; set; }
+        public char? LoadMode { get; set; }
 
         /// <summary>
         /// Full update?
@@ -202,67 +201,67 @@ namespace AltF4.CIF
 
                 if (0 == string.Compare(key, "CURRENCY", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.Currency = value;
+                    header.Currency = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "CHARSET", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.Charset = value;
+                    header.Charset = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "CODEFORMAT", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.CodeFormat = value;
+                    header.CodeFormat = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "COMMENTS", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.Comments = value;
+                    header.Comments = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "DUNS", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.DUNS = bool.Parse(value);
+                    header.DUNS = bool.Parse(value.Trim());
                     continue;
                 }
 
                 if (0 == string.Compare(key, "FIELDNAMES", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.FieldNames = value;
+                    header.FieldNames = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "ITEMCOUNT", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.ItemCount = int.Parse(value, NumberStyles.Integer, CultureInfo.InvariantCulture);
+                    header.ItemCount = int.Parse(value.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture);
                     continue;
                 }
 
                 if (0 == string.Compare(key, "LOADMODE", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.LoadMode = value.FirstOrDefault();
+                    header.LoadMode = value.Trim().FirstOrDefault();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "SUPPLIERID_DOMAIN", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.SupplierIDDomain = value;
+                    header.SupplierIDDomain = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "TIMESTAMP", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.Timestamp = value;
+                    header.Timestamp = value.Trim();
                     continue;
                 }
 
                 if (0 == string.Compare(key, "UNUOM", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    header.UNUoM = bool.Parse(value);
+                    header.UNUoM = bool.Parse(value.Trim());
                     continue;
                 }
             }

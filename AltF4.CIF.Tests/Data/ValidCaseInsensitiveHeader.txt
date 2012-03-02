@@ -1,0 +1,11 @@
+﻿CIF_I_V3.0
+currency:USD
+ChArSeT:8859_1
+CodeFormat:UNSPSC
+ITEMCOUNT:4
+LOADMODE: F
+SUPPLIERID_DOMAIN: DUNS 
+TIMESTAMP:2002-3-12 15:19:55
+UNUOM:True
+COMMENTS:This Catalog contains Parametrics
+FIELDNAMES: Supplier ID, Supplier Part ID,Manufacturer Part ID,Item Description,SPSC Code,Unit Price,Unit of Measure,Lead Time,Manufacturer Name,Supplier URL,Manufacturer URL,Market Price,Currency,Short Name,Language,Expiration Date,Classification Codes,Parametric Data,Parametric Name,Territory Available,Supplier Part Auxiliary ID,Delete,PunchOut Enabled

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace AltF4.CIF.Tests
@@ -32,7 +33,7 @@ namespace AltF4.CIF.Tests
                 debug.Header.Comments = "This is a comment";
                 debug.Header.Currency = "EUR";
                 debug.Header.DUNS = null;
-                debug.Header.FieldNames = string.Join(",", Constants.DefaultFields);
+                debug.Header.FieldNames = string.Join(",", Constants.RequiredFields);
                 debug.Header.ItemCount = items.Count;
                 debug.Header.LoadMode = 'F';
                 debug.Header.SupplierIDDomain = "DUNS";

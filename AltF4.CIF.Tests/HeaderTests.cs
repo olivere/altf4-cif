@@ -7,8 +7,30 @@ using NUnit.Framework;
 namespace AltF4.CIF.Tests
 {
     [TestFixture]
-    public class HeaderBaseTestsFixture : BaseTestFixture
+    public class HeaderTests : BaseTestFixture
     {
+        [Test]
+        public void HeaderFieldsAreCaseInsensitive()
+        {
+            string validHeader = ReadAllText("ValidCaseInsensitiveHeader.txt");
+            CIFHeader header = null;
+            Expect(() => header = CIFHeader.Parse(validHeader), Throws.Nothing);
+            Expect("USD" == header.Currency);
+            Expect("8859_1" == header.Charset);
+            Expect("UNSPSC" == header.CodeFormat);
+        }
+
+        [Test]
+        public void HeaderFieldsShouldBeTrimmed()
+        {
+            string validHeader = ReadAllText("ValidCaseInsensitiveHeader.txt");
+            CIFHeader header = null;
+            Expect(() => header = CIFHeader.Parse(validHeader), Throws.Nothing);
+            Expect('F' == header.LoadMode);
+            Expect("DUNS" == header.SupplierIDDomain);
+            Expect("Supplier ID" == header.FieldNamesList.First());
+        }
+
         [Test]
         public void ShouldParseHeader()
         {
@@ -26,8 +48,9 @@ namespace AltF4.CIF.Tests
             Expect(true == header.UNUoM);
             Expect("This Catalog contains Parametrics" == header.Comments);
             Expect(header.FieldNames, Is.Not.Null.And.Not.Empty);
-            Expect(23 == header.FieldNames.Count());
-            Expect(header.FieldNames.Contains(" Supplier ID"));
+            Expect(header.FieldNames == "Supplier ID,Supplier Part ID,Manufacturer Part ID,Item Description,SPSC Code,Unit Price,Unit of Measure,Lead Time,Manufacturer Name,Supplier URL,Manufacturer URL,Market Price,Currency,Short Name,Language,Expiration Date,Classification Codes,Parametric Data,Parametric Name,Territory Available,Supplier Part Auxiliary ID,Delete,PunchOut Enabled");
+            Expect(23 == header.FieldNamesList.Count());
+            Expect(header.FieldNames.Contains("Supplier ID"));
             Expect(header.FieldNames.Contains("Supplier Part ID"));
             Expect(header.FieldNames.Contains("Manufacturer Part ID"));
             Expect(header.FieldNames.Contains("Item Description"));

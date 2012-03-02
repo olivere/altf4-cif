@@ -37,21 +37,21 @@ namespace AltF4.CIF.Tests
                 Expect(debug.Header.TimestampDate != null);
                 Expect(debug.Header.TimestampDate.Value, Is.EqualTo(new DateTime(2002, 3, 12, 15, 19, 55)));
                 Expect(debug.Header.UNUoM == true);
-                Expect(debug.Header.FieldNames == " Supplier ID,Supplier Part ID,Manufacturer Part ID,Item Description,SPSC Code,Unit Price,Unit of Measure,Lead Time,Manufacturer Name,Supplier URL,Manufacturer URL,Market Price,Currency,Short Name,Language,Expiration Date,Classification Codes,Parametric Data,Parametric Name,Territory Available,Supplier Part Auxiliary ID,Delete,PunchOut Enabled");
+                Expect(debug.Header.FieldNames == "Supplier ID,Supplier Part ID,Manufacturer Part ID,Item Description,SPSC Code,Unit Price,Unit of Measure,Lead Time,Manufacturer Name,Supplier URL,Manufacturer URL,Market Price,Currency,Short Name,Language,Expiration Date,Classification Codes,Parametric Data,Parametric Name,Territory Available,Supplier Part Auxiliary ID,Delete,PunchOut Enabled");
 
                 Expect(debug.ItemCalls == 4);
                 Expect(debug.Items != null);
                 Expect(debug.Items.Count == 4);
-                Expect(debug.Items[0][" Supplier ID"] == "195575006");
+                Expect(debug.Items[0]["Supplier ID"] == "195575006");
                 Expect(debug.Items[0]["Supplier Part ID"] == "CS2820E");
                 // TODO validate other fields
-                Expect(debug.Items[1][" Supplier ID"] == "195575006");
+                Expect(debug.Items[1]["Supplier ID"] == "195575006");
                 Expect(debug.Items[1]["Supplier Part ID"] == "CS2820EE");
                 // TODO validate other fields
-                Expect(debug.Items[2][" Supplier ID"] == "195575006");
+                Expect(debug.Items[2]["Supplier ID"] == "195575006");
                 Expect(debug.Items[2]["Supplier Part ID"] == "MB2014");
                 // TODO validate other fields
-                Expect(debug.Items[3][" Supplier ID"] == "195575006");
+                Expect(debug.Items[3]["Supplier ID"] == "195575006");
                 Expect(debug.Items[3]["Supplier Part ID"] == "PAD");
             }
         }

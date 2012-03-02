@@ -1,0 +1,12 @@
+﻿CIF_I_V3.0
+LOADMODE: F
+CODEFORMAT: UNSPSC
+CURRENCY: USD
+SUPPLIERID_DOMAIN: DUNS
+ITEMCOUNT: 3
+TIMESTAMP: 2000-05-15 15:25:04
+DATA
+942888710,34A11,C11,"Eames Chair, Black Leather",11116767,400.00,EA,3,"Fast MFG",http://www.acme.com/34A11.htm,http://www.mfg.com/C11/indepth.htm,400.00
+942888710,56A12,C12,"Eames Ottoman, Blk Leather",11116767,100.00,EA,3,"Fast MFG",http://www.acme.com/56A12.htm,http://www.mfg.com/C12/indepth.htm,100.00
+942888710,78A13,C13,"Folding Chair, Grey Stackable",11116767,25.95,EA,3,"Fast MFG",http://www.acme.com/78A13.htm,http://www.mfg.com/C13/indepth.htm,25.95
+ENDOFDATA

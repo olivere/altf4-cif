@@ -62,6 +62,22 @@ namespace AltF4.CIF.Tests
         }
 
         [Test]
+        public void ShouldParseQuoteInField()
+        {
+            var fields = CIFItem.ParseCSV("First,Disc 3.5\" size,Third");
+            Expect(3 == fields.Count());
+            Expect("First" == fields.ElementAt(0));
+            Expect("Disc 3.5\" size" == fields.ElementAt(1));
+            Expect("Third" == fields.ElementAt(2));
+
+            fields = CIFItem.ParseCSV("First,Disc 3.5\",Third");
+            Expect(3 == fields.Count());
+            Expect("First" == fields.ElementAt(0));
+            Expect("Disc 3.5\"" == fields.ElementAt(1));
+            Expect("Third" == fields.ElementAt(2));
+        }
+
+        [Test]
         public void ShouldParseEdgeCasesWithQuotedFields()
         {
             // No closing quote

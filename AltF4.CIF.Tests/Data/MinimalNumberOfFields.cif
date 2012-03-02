@@ -1,0 +1,7 @@
+﻿CIF_I_V3.0
+DATA
+942888711,100,,"Blue Ballpoint Pen",1213376,1.95,EA,,,,,
+942888711,101,,"No. 2 Pencil",1213377,1.50,DZN,,,,,
+942888711,102,,"Rubber Eraser",1213472,0.25,PK,,,,,
+942888711,103,,"Stapler, Standard",1237461,2.95,BX,,,,,
+ENDOFDATA

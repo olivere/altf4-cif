@@ -1,0 +1,14 @@
+﻿CIF_I_V3.0
+LOADMODE: F
+CODEFORMAT: UNSPSC
+CURRENCY: USD
+SUPPLIERID_DOMAIN: DUNS
+COMMENTS: Sample CIF 3.0 catalog
+CHARSET: 8859_1 
+ITEMCOUNT: 2
+TIMESTAMP: 2000-01-18 00:00:00
+FIELDNAMES: Supplier ID, Supplier Part ID, Manufacturer Part ID, Item Description, SPSC Code, Unit Price, Unit of Measure, Lead Time, Manufacturer Name, Supplier URL, Manufacturer URL, Market Price, Short Name, Currency, Expiration Date, Effective Date, Classification Codes, Parametric Data, Parametric Name
+DATA
+942888710,SUX-33,286-33,"Super Duper 33-MHz 286, 4MB RAM, 10MB, 14”” VGA color monitor",43171803,1259.59,EA,3,"Super Duper Computer",http://www.slowcomp.com/products/indepth33.htm,,1599.49,"Desktop Computer",USD,2000-12-01,2000-03-01, {ACME=8BE100},{TYPE="IBM PC";SPEED="33 MHZ";},COMPUTERS
+942888710,SUX-66,286-66,"Super Duper 66-MHz 286, 8MB RAM, 20MB, 17”” VGA color monitor",5045990402,1699.99,EA,4,"Super Duper Computer",http://www.slowcomp.com/products/indepth66.htm,,1999.49,"Desktop Computer",USD,2000-12-01,2000-03-01,{ACME=8BE101},{TYPE="IBM PC";SPEED="66 MHZ";},COMPUTERS
+ENDOFDATA
